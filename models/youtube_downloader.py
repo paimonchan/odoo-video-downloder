@@ -5,7 +5,8 @@ from odoo import models, fields
 from odoo.exceptions import UserError
 from urllib.parse import urlparse, parse_qs
 from .base_downloader import BaseDownloader
-from .datas.streaming_data import StreamingData
+from .datas.video_stream_data import VideoStreamData
+from .datas.video_detail_data import VideoDetailData
 
 class YoutubeDownloader(models.TransientModel, BaseDownloader):
     _name = 'paimon.youtube.downloader'
@@ -35,14 +36,14 @@ class YoutubeDownloader(models.TransientModel, BaseDownloader):
             return url.path.split('/')[2]
         return False
     
-    def extract_video_hosts(self, metadata):
+    def extract_video_stream(self, metadata):
         if not metadata:
             return dict()
         streaming_data = metadata.get('streamingData') or dict()
         adaptive_formats = streaming_data.get('adaptiveFormats') or []
-        streaming_datas = StreamingData.empty()
+        video_stream_datas = VideoStreamData.empty()
         for adaptive in adaptive_formats:
-            streaming_data_id = StreamingData.create(dict(
+            streaming_data_id = VideoStreamData.create(dict(
                 url             = adaptive.get('url'),
                 bitrate         = adaptive.get('bitrate'),
                 width           = adaptive.get('width'),
@@ -50,9 +51,9 @@ class YoutubeDownloader(models.TransientModel, BaseDownloader):
                 content_length  = adaptive.get('contentLength'),
                 quality_label   = adaptive.get('qualityLabel'),
             ))
-            streaming_datas |= streaming_data_id
+            video_stream_datas |= streaming_data_id
             # return streaming_data_ids
-        return streaming_datas
+        return video_stream_datas
     
     def check_playable(self, metadata):
         def _check_status(status):
@@ -110,6 +111,5 @@ class YoutubeDownloader(models.TransientModel, BaseDownloader):
     
     def get_downloadable_video(self):
         metadata = self.get_video_metadata()
-        streaming_data_ids = self.extract_video_hosts(metadata)
         self._streaming_datas = streaming_data_ids
-        return self.streaming_datas
+        return self.streaming_datas        self._video_stream_datas = self.extract_video_stream(metadata)

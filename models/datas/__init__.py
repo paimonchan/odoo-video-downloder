@@ -1,1 +1,1 @@
-from . import streaming_data
+from . import video_stream_data
