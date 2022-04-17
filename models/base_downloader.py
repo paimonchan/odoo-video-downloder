@@ -13,3 +13,7 @@ class BaseDownloader:
     @property
     def streaming_datas(self):
         return self._streaming_datas
+
+    @streaming_datas.setter
+    def streaming_datas(self, value):
+        raise ValueError('cannot direct assign streaming_datas')
