@@ -55,6 +55,19 @@ class YoutubeDownloader(models.TransientModel, BaseDownloader):
             # return streaming_data_ids
         return video_stream_datas
     
+    def extract_video_detail(self, metadata):
+        detail = metadata.get('videoDetails') or dict()
+        thumbnails = (detail.get('thumbnail') or dict()).get('thumbnails') or []
+        thumbnail_url = len(thumbnails) > 0 and thumbnails[-1].get('url') or str()
+        return VideoDetailData.create(dict(
+            video_id            = detail.get('videoId'),
+            title               = detail.get('title'),
+            length              = detail.get('lengthSeconds'),
+            thumbnail           = thumbnail_url,
+            description         = detail.get('shortDescription'),
+            is_private          = detail.get('isPrivate')
+        ))
+    
     def check_playable(self, metadata):
         def _check_status(status):
             if status == 'OK'                   : return
@@ -111,5 +124,6 @@ class YoutubeDownloader(models.TransientModel, BaseDownloader):
     
     def get_downloadable_video(self):
         metadata = self.get_video_metadata()
-        self._streaming_datas = streaming_data_ids
-        return self.streaming_datas        self._video_stream_datas = self.extract_video_stream(metadata)
+        self._video_stream_datas = self.extract_video_stream(metadata)
+        self._video_detail_datas = self.extract_video_detail(metadata)
+        return self.video_stream_datas, self.video_detail_datas
