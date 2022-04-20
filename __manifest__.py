@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Odoo Youtube Downloader",
-    'summary': """Odoo Youtube Downloader""",
-    'description': """Youtube Downloader""",
+    'name': "Odoo Video Downloader",
+    'summary': """Odoo Video Downloader""",
+    'description': """Video Downloader""",
     'author': "Paimon",
     'category': 'other',
     'version': '1.0.1',
