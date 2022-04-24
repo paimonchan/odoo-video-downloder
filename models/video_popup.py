@@ -7,9 +7,11 @@ class VideoPopup(models.TransientModel):
     cookie                      = fields.Char()
 
     def confirm(self):
-        video_id = self.env['paimon.video'].create(dict(
-            url                 = self.url,
-        ))
+        video_id = self.env['paimon.video'].search([('url', '=', self.url)], limit=1)
+        if not video_id:
+            video_id = self.env['paimon.video'].create(dict(
+                url                 = self.url,
+            ))
         video_id.action_generate_download_link(self.cookie or str())
 
         return dict(

@@ -2,7 +2,7 @@ from odoo import models, fields
 
 class Video(models.Model):
     _name = 'paimon.video'
-    _order = 'create_date desc'
+    _order = 'write_date desc'
 
     name                        = fields.Char()
     url                         = fields.Char(required=True)
