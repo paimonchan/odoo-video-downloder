@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- #region: model access -->
+    <record id="paimon_video_administrator" model="ir.model.access">
+        <field name="name">paimon_video_administrator</field>
+        <field name="model_id" ref="model_paimon_video"/>
+        <field name="group_id" ref="base.group_erp_manager"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="paimon_video_user" model="ir.model.access">
+        <field name="name">paimon_video_user</field>
+        <field name="model_id" ref="model_paimon_video"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="perm_unlink">1</field>
+    </record>
+    <!-- #endregion: model access -->
+</odoo>
