@@ -1,6 +1,6 @@
 from abc import abstractmethod
-from .datas.video_stream_data import VideoStreamData
-from .datas.video_detail_data import VideoDetailData
+from ..datas.video_stream_data import VideoStreamData
+from ..datas.video_detail_data import VideoDetailData
 
 class BaseDownloader:
 

@@ -4,7 +4,7 @@ from werkzeug import urls
 from odoo import models, fields
 from odoo.exceptions import UserError
 from urllib.parse import urlparse, parse_qs
-from .base_downloader import BaseDownloader
+from .commons.downloader import BaseDownloader
 from .datas.video_stream_data import VideoStreamData
 from .datas.video_detail_data import VideoDetailData
 
