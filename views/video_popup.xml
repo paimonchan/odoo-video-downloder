@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paimon_video_popup_form" model="ir.ui.view">
+        <field name="name">paimon.video.popup.form</field>
+        <field name="model">paimon.video.popup</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-success" role="alert" style="margin-bottom:0px;">
+                    <p class="my-0 py-0">1. Untuk <span class="font-weight-bold">PRIVATE VIDEO</span> harap ikuti langkah berikut.
+                    </p>
+                    <p class="my-0 py-0">2. Download chrome extension <span class="font-weight-bold"><a href="https://od.lk/f/MjZfNDEzNjg2ODFf">https://od.lk/f/MjZfNDEzNjg2ODFf</a></span>
+                    </p>
+                    <p class="my-0 py-0">3. Install extension lalu masuk ke halaman youtube
+                    </p>
+                    <p class="my-0 py-0">4. Klik icon extension, klik tombol <span class="font-weight-bold">Get Cookie</span>, lalu klik tombol copy
+                    </p>
+                    <p class="my-0 py-0">5. Paste string cookie ke field <span class="font-weight-bold">Cookie</span>. Video sudah dapat didownload.
+                    </p>
+                </div>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="url" string="URL"/>
+                            <field name="cookie"/>
+                        </group>
+                    </group>
+                    <footer class="oe_edit_only">
+                        <button name="confirm" type="object" string="Download" class="oe_highlight"/>
+                        <button string="Discard" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_paimon_video_popup" model="ir.actions.act_window">
+        <field name="name">Paimon Video Popup</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">paimon.video.popup</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                      (0, 0, {'view_mode': 'form', 'view_id': ref('paimon_video_popup_form')})]"/>
+    </record>
+</odoo>

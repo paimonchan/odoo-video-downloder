@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem sequence="30" id="menu_video" name="Video"/>
+        <menuitem sequence="1" parent="menu_video" id="menu_youtube" name="Youtube"/>
+            <menuitem sequence="1" parent="menu_youtube" id="menu_youtube_video" name="Youtube" action="action_paimon_video"/>
+            <menuitem sequence="2" parent="menu_youtube" id="menu_youtube_video_popup" name="Generate Download Link" action="action_paimon_video_popup"/>
+</odoo>

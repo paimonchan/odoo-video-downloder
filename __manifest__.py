@@ -9,5 +9,11 @@
     'depends': ['base'],
     'data': [
         'security/youtube_downloader.xml',
+        'security/video_popup.xml',
+        'security/video_line.xml',
+        'security/video.xml',
+        'views/video_popup.xml',
+        'views/video.xml',
+        'views/menu.xml',
     ],
 }
