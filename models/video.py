@@ -17,6 +17,7 @@ class Video(models.Model):
     type                        = fields.Selection([
                                     ('youtube', 'Youtube')
                                 ], default='youtube')
+    next_refresh_date           = fields.Datetime()
     
     def action_generate_download_link(self, cookie=str()):
         downloader = self.env['paimon.youtube.downloader']
@@ -57,4 +58,27 @@ class VideoLine(models.Model):
             type                = 'ir.actions.act_url',
             url                 = self.download_url,
             target              = 'new',
+        )
+
+class VideoPopup(models.TransientModel):
+    _name = 'paimon.video.popup'
+
+    url                         = fields.Char(required=True)
+    cookie                      = fields.Char()
+
+    def confirm(self):
+        video_id = self.env['paimon.video'].search([('url', '=', self.url)], limit=1)
+        if not video_id:
+            video_id = self.env['paimon.video'].create(dict(
+                url                 = self.url,
+            ))
+        video_id.action_generate_download_link(self.cookie or str())
+
+        return dict(
+            name                ='Delivery',
+            type                ='ir.actions.act_window',
+            res_model           ='paimon.video',
+            view_mode           ='kanban,form',
+            view_type           ='form',
+            target              ='current',
         )
